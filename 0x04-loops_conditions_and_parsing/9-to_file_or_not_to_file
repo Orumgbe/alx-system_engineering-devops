@@ -13,8 +13,6 @@ then
 	if [ -f "$name" ]
 	then
 	echo "$name is a regular file"
-	else
-	echo ""
 	fi
 else
 	echo "$name file does not exist"
