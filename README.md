@@ -1,1 +1,1 @@
-Shell Scipt Project
+Shell commands and shell scripts
