@@ -1,12 +1,12 @@
 # puppet script config file
 
-search { 'PasswordAuthentication':
+file_line { 'PasswordAuthentication':
   ensure => 'present',
   path   => '/etc/ssh/ssh_config',
   line   => 'PasswordAuthentication no',
 }
 
-search { 'IdentityFile':
+file_line { 'IdentityFile':
   ensure => 'present',
   path   => '/etc/ssh/ssh_config',
   line   => 'IdentityFile ~/.ssh/school',
