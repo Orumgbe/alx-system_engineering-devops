@@ -1,15 +1,15 @@
 # configure nginx
 
-package { 'nginx' :
+package { 'nginx':
     ensure => 'installed',
 }
 
-file { /var/www/html/index.nginx-debian.html :
+file { '/var/www/html/index.nginx-debian.html':
     require => Package['nginx'],
     content => 'Hello World!',
 }
 
-file_line { 'add-rewrite' :
+file_line { 'add-rewrite':
     ensure  => 'present',
     require => Package['nginx'],
     path    => '/etc/nginx/sites-enabled/default',
@@ -18,7 +18,7 @@ file_line { 'add-rewrite' :
     notify  => Service['nginx'],
 }
 
-service { 'nginx' :
+service { 'nginx':
     ensure  => running,
     require => File_line['add-rewrite'],
 }
