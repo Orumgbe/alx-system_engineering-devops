@@ -1,6 +1,6 @@
 # configure nginx
 
-package { nginx :
+package { 'nginx' :
     ensure => 'installed',
 }
 
