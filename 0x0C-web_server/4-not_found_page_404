@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 #custom error 404 page
 ./3-redirection
-echo "Cest n'est pas une page" > /var/www/html/error404.html
+echo "Ceci n'est pas une page" > /var/www/html/error404.html
 
 sed '42i\error_page 404 /error404.html;' /etc/nginx/sites-enabled/default
 
