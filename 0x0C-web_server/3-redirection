@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
 #Redirects '/redirect_me' page on server (moved permanently)
 ./1-install_nginx_web_server
-sed -i '41i\rewrite ^/redirect_me sitesurf.tech permanent;' /etc/nginx/sites-enabled/default
-sudo service nginx restart
+sed -i '41i\rewrite ^/redirect_me sitesurf.tech permanently;' /etc/nginx/sites-enabled/default
+service nginx restart
