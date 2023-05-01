@@ -10,15 +10,15 @@ file { /var/www/html/index.nginx-debian.html :
 }
 
 file_line { 'add-rewrite' :
-    ensure => 'present',
+    ensure  => 'present',
     require => Package['nginx'],
-    path => '/etc/nginx/sites-enabled/default',
-    after => 'root /var/www/html;',
-    line => 'rewrite ^/redirect_me sitesurf.tech permanent;',
-    notify => Service['nginx'],
+    path    => '/etc/nginx/sites-enabled/default',
+    after   => 'root /var/www/html;',
+    line    => 'rewrite ^/redirect_me sitesurf.tech permanent;',
+    notify  => Service['nginx'],
 }
 
 service { 'nginx' :
-    ensure => running,
+    ensure  => running,
     require => File_line['add-rewrite'],
 }
