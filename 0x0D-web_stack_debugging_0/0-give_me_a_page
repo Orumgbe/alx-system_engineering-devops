@@ -1,4 +1,4 @@
-#!usr/bin/env bash
+#!/usr/bin/env bash
 # Get apache to run on container
 # Set ip to servername
 echo "ServerName localhost" >> /etc/apache2/apache2.conf
