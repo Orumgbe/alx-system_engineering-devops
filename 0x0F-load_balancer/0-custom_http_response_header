@@ -1,0 +1,40 @@
+#!/usr/bin/env bash
+#configure ubuntu machine to be identical to web-01
+sudo apt-get update -y
+sudo apt-get install nginx -y
+
+sudo ufw allow OpenSSH
+sudo ufw allow 'Nginx HTTP'
+sudo ufw enable
+
+sudo echo 'Hello World!' > /var/www/html/index.html
+sudo echo "Ceci n'est pas une page" > /var/www/html/error404.html
+
+configuration=\
+"server {
+        listen 80 default_server;
+        listen [::]:80 default_server;
+
+        # SSL configuration
+        #
+        # listen 443 ssl default_server;
+        # listen [::]:443 ssl default_server;
+
+        rewrite ^/redirect_me sitesurf.tech permanent;
+        error_page 404 /error404.html;
+        root /var/www/html;
+
+        # Add index.php to the list if you are using PHP
+        index index.html index.htm index.nginx-debian.html nginx.html;
+
+        server_name _;
+        add_header X-Served-By $hostname;
+        location / {
+                # First attempt to serve request as file, then
+                # as directory, then fall back to displaying a 404.
+                try_files $uri $uri/ =404;
+        }
+}"
+
+sudo echo "$configuration" > /etc/nginx/sites-enabled/default
+sudo service nginx restart
