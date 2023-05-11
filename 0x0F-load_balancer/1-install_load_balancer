@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+#Install and configure haproxy load balancer for web-01 and web-02 servers
+sudo apt install haproxy -y
+echo "ENABLED=1" | sudo tee /etc/default/haproxy
+echo "
+frontend http
+	bind *:80
+	mode http
+	default_backend web-backend
+
+backend web-backend
+	balance roundrobin
+	server 52158-web-01 18.206.192.19:80 check
+	server 52158-web-02 34.229.56.33:80 check
+" | sudo tee -a /etc/haproxy/haproxy.cfg
+
+sudo service haproxy restart
