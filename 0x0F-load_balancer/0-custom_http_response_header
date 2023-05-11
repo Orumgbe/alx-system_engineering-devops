@@ -5,13 +5,11 @@ sudo apt-get install nginx -y
 
 sudo ufw allow OpenSSH
 sudo ufw allow 'Nginx HTTP'
-sudo ufw enable
 
-echo 'Hello World!' > /var/www/html/index.html
-echo "Ceci n'est pas une page" > /var/www/html/error404.html
+echo 'Hello World!' | sudo tee /var/www/html/index.html
+echo "Ceci n'est pas une page" | sudo tee /var/www/html/error404.html
 
-configuration=\
-"server {
+echo "server {
         listen 80 default_server;
         listen [::]:80 default_server;
 
@@ -25,16 +23,15 @@ configuration=\
         root /var/www/html;
 
         # Add index.php to the list if you are using PHP
-        index index.html index.htm index.nginx-debian.html nginx.html;
+        index index.html index.htm index.nginx-debian.html;
 
         server_name _;
-        add_header X-Served-By $hostname;
+        add_header X-Served-By \$hostname;
         location / {
                 # First attempt to serve request as file, then
                 # as directory, then fall back to displaying a 404.
-                try_files $uri $uri/ =404;
+                try_files \$uri \$uri/ =404;
         }
-}"
+}" | sudo tee /etc/nginx/sites-enabled/default
 
-echo "$configuration" > /etc/nginx/sites-enabled/default
 sudo service nginx restart
