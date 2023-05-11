@@ -7,8 +7,8 @@ sudo ufw allow OpenSSH
 sudo ufw allow 'Nginx HTTP'
 sudo ufw enable
 
-sudo echo 'Hello World!' > /var/www/html/index.html
-sudo echo "Ceci n'est pas une page" > /var/www/html/error404.html
+echo 'Hello World!' > /var/www/html/index.html
+echo "Ceci n'est pas une page" > /var/www/html/error404.html
 
 configuration=\
 "server {
@@ -36,5 +36,5 @@ configuration=\
         }
 }"
 
-sudo echo "$configuration" > /etc/nginx/sites-enabled/default
+echo "$configuration" > /etc/nginx/sites-enabled/default
 sudo service nginx restart
