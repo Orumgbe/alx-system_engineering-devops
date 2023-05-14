@@ -1,0 +1,61 @@
+What happens when you type https://www.google.com in your browser and press Enter?
+
+Introduction
+
+    The internet is a global interconnection of computers. Any information searched for on a browser most likely resides on a computer somewhere in the world. Most of the information the internet holds is stored on specific types of computer called servers and the computer requesting information is called a client.
+
+    What happens when we try to access a web page, for example, the google home page?
+    Like every other web page on the internet, the google home page is stored on a server somewhere in the world, but there are millions of servers in the world right now. So how does your computer know which server to ask for this information?
+    Much like how every human on earth has a name, computers also have a unique form of identification, this is called an IP address. An Internet Protocol (IP) address is a unique numerical identifier which every computer that connects to the internet possesses. It is usually represented by a series of numbers seperated by fullstops, a typical IP address would look something like 192.102.1.49.
+
+DNS request
+
+    Web browsers interact through IP addresses, but these IP addresses are not easy to remember for humans, so the internet has adopted a naming system called the Domain Name System. The domain name system basically assigns a nickname of sorts to each device on the internet, these names are called 'Domain names'. An example of a domain name is something like, www.google.com. These names are much easier to remember than the computer-friendly IP address.
+    When the search request is made on a web browser, a DNS query, or request, is sent. This request is received by a DNS resolver, the resolver then queries the DNS servers until it finds the IP address with the domain name that was searched. If the IP address is not found, or a request timeout occurs, then a 'page not found' or 'request timeout' page is returned.
+
+TCP/IP
+
+    Now that we have found the address of the computer that has the information we need, how do we communicate with it? 
+    A set of standardized rules that allow computers to commmunicate on a network have been decided upon. This is TCP/IP, Transmission Control Protocol and Internet Protocol.
+    The IP is required to obtain the address to which data is to be sent, much like how we found the computer that had the information we needed, and TCP is responsible for how data is transmitted once the IP address has been found. TCP and IP usually go hand in hand, and as such, the TCP/IP is an acceptable terminology.
+    TCP/IP breaks the data requested into small pieces called packets, each packet is sent from the server to the client, the packets are then reassembled. Imagine the google homepage to be a brick wall, TCP/IP would take apart the wall, send all the bricks to the client computer, and then reassemble the wall on the client end. This process even allows for the packets to be sent through different routes since it still ends up at the client computer IP address as the final destination.
+
+Firewall
+
+    The firewall is a network security device that monitors and filters traffic on a network based on a defined set of rules. Not all information on the server is to be shared to the public, and sometimes the information is only to be shared to a select few. At it's most basic, a firewall monitors incomung and outgoing network traffic and then permit or block the transmission of data packets depending on whether the cilent requesting the information is authorized or if the server is configured to serve the request. This mechanism prevents unwanted access to private data on a network.
+
+HTTPS/SSL
+
+    SSL (Secure Socket Layer) is an extra security measure taken to protect data transfer between client and servers. SSL encrypts data as it moves between server and client. This ensures that sensitive information is protected against any attempts to intercept the data being transferred.
+    An SSL certificate is needed on a web server in order to provide secure connection. An SSL certificate is a file that contains a public key and a private key. These keys are used to encrypt and decrypt data. When you search www.google.com on your browser, the web browser performs a "handshake" of sorts to check the validity of the web servers SSL certificate. If the SSL certificate is not valid, the browser notifies you that your connection is not private, if the SSL certificate is valid, the connection is secure, and this is indicated by a padlock logo beside the url.
+    It is worth noting that TLS (Transport Layer Security) is a newer, more secure verion of SSL.
+
+    HTTPS (Hypertext Tranfer Protocol Secure) is essentially a secure version of HTTP (HyperText Transfer Protocol). When HTTP is used over TLS or SSL, the data is encrypted and transferred before getting decrypted on the client end.
+
+Load-balancer
+
+    Now that we know how information is transferred over the internet. Let's talk about how servers are able to meet up with so many requests from users all over the world.
+    A load balancer is a device that distributes network or application traffic across a number of servers. There are different load balancing algorithms that determine how the load balancing is carried out. A load balancer essentially chooses which server will serve a request at any particular time.
+This avoids a situation where only one server serves all requests and ends up overworked. Load balancers also make is easier to add more servers to a network, and in the event that a server in the network goes down. the other servers can keep serving requests until the down servers are back online.
+    A very commonly used load balancing algorithm is the roundrobin algorithm. In this implementation, given 3 servers, the first request would be served by the first server, the second request would be directed to the second server, the third to the third server, the fourth request would be directed to the first server and the cycle continues. In this implementation, the workload is shared equally amongst all available servers.
+
+Web server
+
+    Web servers are a type of server, it consists of a software and a hardware component. It's primary function is to respond to client requests for web pages. On the hardware side, a web server is a computer that stores web pages (HTML documents, CSS stylesheets and Javascript files), on the software side a webserver responds to client requests, it understands the url and points to the location where the web page is stored.
+    A few common web servers are the Apache http server and NGINX we serevr.
+
+Application server
+
+    A web server is used to serve static html documents, an application server on the other hand enables a server to generate a dynamic, customized response to a client request. An application server runs a program and processes data.
+    Basically, application servers handle interactions between server at the backend, it processes requests and could even make requests to other servers, depending on what is required.
+    For example, if a user makes a request for information that is stored on a database, an application server would process that request and make a request to a database server in order to generate the required information for the search result.
+
+Database server
+
+    A database server is a kind of server. It's basic function is to keep records. It uses a database application that provide services to other computer programs.
+    The DNS we explored earlier stores domain names and their respective IP addresses in a database and anytime a request is made on a browser, the database server of the domain name system provides the required service to the network.
+
+Conclusion
+
+    If your curiosity got you to this point, I really hope this post was able to provide a basic understanding of what happens when you make search requests on a browser.
+    Thanks for reading.
