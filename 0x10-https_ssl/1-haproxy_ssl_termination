@@ -39,8 +39,8 @@ listen local_server
   balance roundrobin
   option httpclose
   option forwardfor
-  server 826-web-01 104.196.98.170 check
-  server 826-web-02 44.197.196.139 check
+  server 52158-web-01 100.25.188.21 check
+  server 52158-web-02 52.86.207.199 check
   # Test URI te see if its aletsencrypt request
   acl letsencrypt-acl path_beg /.well-known/acme-challenge/
   use-server letsencrypt-se if letsencrypt-acl
