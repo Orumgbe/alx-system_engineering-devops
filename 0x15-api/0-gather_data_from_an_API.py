@@ -6,11 +6,7 @@ from sys import argv
 
 
 if __name__ == '__main__':
-    try:
-        employee_ID = int(argv[1])
-    except ValueError:
-        print("Argument should be an integer")
-        exit(1)
+    employee_ID = int(argv[1])
 
     empName = requests.get("https://jsonplaceholder.typicode.com/users/{}"
                            .format(employee_ID)).json().get("name")
