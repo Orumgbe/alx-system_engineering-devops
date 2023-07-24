@@ -6,7 +6,11 @@ from sys import argv
 
 
 if __name__ == '__main__':
-    employee_ID = int(argv[1])
+    try:
+        employee_ID = int(argv[1])
+    except ValueError:
+        print("Argument should be an integer")
+        exit(1)
 
     empName = requests.get("https://jsonplaceholder.typicode.com/users/{}"
                            .format(employee_ID)).json().get("name")
@@ -18,7 +22,7 @@ if __name__ == '__main__':
         if task["completed"]:
             completedTasks.append(task["title"])
 
-    print("Employee {} is done with tasks({:d}/{:d})"
+    print("Employee {} is done with tasks({:d}/{:d}):"
           .format(empName, len(completedTasks), len(tasks)))
 
     for task in completedTasks:
