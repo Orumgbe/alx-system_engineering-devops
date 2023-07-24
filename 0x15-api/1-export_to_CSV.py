@@ -15,7 +15,7 @@ if __name__ == '__main__':
         exit(1)
 
     empName = requests.get("https://jsonplaceholder.typicode.com/users/{}"
-                           .format(employee_ID)).json().get("name")
+                           .format(employee_ID)).json().get("username")
     tasks = requests.get("https://jsonplaceholder.typicode.com/users/{}/todos"
                          .format(employee_ID)).json()
 
