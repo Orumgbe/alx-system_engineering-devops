@@ -11,15 +11,11 @@ if __name__ == '__main__':
     employee_ID = 1
     allDict = {}
     allEmp = requests.get("https://jsonplaceholder.typicode.com/users").json()
-    count = len(allEmp)
 
-    while (employee_ID <= count):
+    for emp in allEmp:
+        employee_ID = emp["id"]
         empName = requests.get("https://jsonplaceholder.typicode.com/users/{}"
                                .format(employee_ID)).json().get("username")
-        if (empName == ''):
-            employee_ID += 1
-            continue
-
         todoURL = "https://jsonplaceholder.typicode.com/users/{}/todos"\
                   .format(employee_ID)
         tasks = requests.get(todoURL).json()
@@ -32,8 +28,7 @@ if __name__ == '__main__':
             content["completed"] = task["completed"]
             listValue.append(content)
 
-        allDict[employee_ID] = listValue
-        employee_ID += 1
+    allDict[employee_ID] = listValue
 
     with open('todo_all_employees.json', 'a') as myJSON:
         json.dump(allDict, myJSON)
