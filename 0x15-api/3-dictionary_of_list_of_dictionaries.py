@@ -8,7 +8,6 @@ from sys import argv
 
 
 if __name__ == '__main__':
-    employee_ID = 1
     allDict = {}
     allEmp = requests.get("https://jsonplaceholder.typicode.com/users").json()
 
@@ -28,7 +27,7 @@ if __name__ == '__main__':
             content["completed"] = task["completed"]
             listValue.append(content)
 
-    allDict[employee_ID] = listValue
+        allDict[employee_ID] = listValue
 
-    with open('todo_all_employees.json', 'a') as myJSON:
-        json.dump(allDict, myJSON)
+        with open('todo_all_employees.json', 'a') as myJSON:
+            json.dump(allDict, myJSON)
