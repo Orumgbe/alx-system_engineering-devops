@@ -27,6 +27,6 @@ if __name__ == '__main__':
         content["username"] = empName
         listValue.append(content)
 
-    myDict = {argv[1] : listValue}
+    myDict = {argv[1]: listValue}
     with open('{}.json'.format(employee_ID), 'w') as myJSON:
-          json.dump(myDict, myJSON)
+        json.dump(myDict, myJSON)
