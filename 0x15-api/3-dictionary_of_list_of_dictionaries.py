@@ -29,5 +29,5 @@ if __name__ == '__main__':
 
         allDict[employee_ID] = listValue
 
-        with open('todo_all_employees.json', 'a') as myJSON:
-            json.dump(allDict, myJSON)
+    with open('todo_all_employees.json', 'w') as myJSON:
+        json.dump(allDict, myJSON)
