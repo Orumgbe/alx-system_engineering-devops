@@ -5,13 +5,10 @@ import requests
 
 
 def recurse(subreddit, hot_list=[], after=None):
-    """
-        returns a list of the hottest posts of a subreddit
-        or None
-    """
-    u_agent = {'User-Agent': '/u/k4rma_sutra'}
+    """Queries subreddit for hottest articles"""
     url = 'https://api.reddit.com/r/{}/hot?after={}'.format(subreddit, after)
-    res = requests.get(url,  headers=u_agent)
+    agent = {'User-Agent': '/u/k4rma_sutra'}
+    res = requests.get(url,  headers=agent)
     h_list = []
     if res.status_code == 200:
         hottest = res.json()["data"]["children"]
