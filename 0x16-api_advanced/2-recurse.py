@@ -9,7 +9,7 @@ def recurse(subreddit, hot_list=[], after=None):
         returns a list of the hottest posts of a subreddit
         or None
     """
-    u_agent = {'User-Agent': '/u/recurseIT'}
+    u_agent = {'User-Agent': '/u/k4rma_sutra'}
     url = 'https://api.reddit.com/r/{}/hot?after={}'.format(subreddit, after)
     res = requests.get(url,  headers=u_agent)
     h_list = []
