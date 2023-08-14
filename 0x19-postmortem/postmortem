@@ -1,0 +1,42 @@
+Issue Summary:
+  On the 12th of August 2023, between 6:21pm to 7:30pm West Africa Time.
+My Ubuntu software being hosted on a VMware Workstation suddenly freezes, without any
+response from the system, I forced the host system off by holding down the machine's power 
+button for a few seconds. After turning and on the machine again and running the
+Ubuntu machine, I noticed a lack of network connectivity despite the fact that the host
+system could access the internet. The problem is suspected to have risen from a
+few missing kernel modules upon boot up, namely mod 'e1000e' and 'igb'.
+  Being the sole user of the machine, I was the only one affected, however, this
+is an issue that can affect anyone.
+
+Timeline (all in West Africa Time on the 12th of August 2023):
+*  6:21pm: Inability to access the internet detected.
+*  6:21pm: Issue was detected when trying to deploy the static files of a website to
+a couple ubuntu servers being hosted on the machine
+*  6:25pm: Tried pinging www.google.com to test the network connection
+*  6:30pm: Tried rebooting system, and noted a continued lack of network connectivity
+*  6:45pm: Ran command 'sudo lshw -C network' to inspect the state of the network
+*  6:50pm: Read recent kernel log messages using the 'dmesg' command
+*  7:00pm: Found some modules missing were disabling the machine's ability to establish an internet connection
+*  7:10pm: Used the 'modprobe' command to add the required modules
+*  7:15pm: Requested network configuration information using dhclient
+*  7:20pm: Rebooted system
+*  7:30pm: System regains internet connectivity
+
+Root cause and resolution:
+  The issue arose after a forced shutdown of the machine after detecting a crash
+that caused the machine to freeze all processes. Although unlikely, It seems to
+be that a couple kernel modules were lost in the process, which reulted in a 
+loss of network connectivity. The network showed a disabled status while troubleshooting.
+Upon examining the kernel log information, the missing modules were noted and
+the following commands were required to get the machine back in order.
+
+  sudo modprobe e1000e
+  sudo modprobe igb
+  sudo dhclient ens33
+  sudo reboot
+
+Corrective and preventative measures must contain:
+  Reducing machine load and allotting more memory to the virtual machine to
+prevent future crashes.
+  Choosing to properly shutdown the virtual machine would reduce the chances of corruption within the kernel, and as such problems like this could be prevented in its entirety.
