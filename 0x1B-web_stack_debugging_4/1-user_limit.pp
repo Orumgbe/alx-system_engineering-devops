@@ -1,8 +1,13 @@
-# change all limits
-exec { 'soft limit change':
-  command  => 'sudo sed -i "s/holberton\ssoft.*/holberton\tsoft\tnofile\t10000/" /etc/security/limits.conf'
+# Enable the user holberton to login and open files without error
+
+# Increase hard file limit
+exec { 'replace':
+  command => 'sudo sed -i "/holberton hard/s/5/50000/" /etc/security/limits.conf',
+  path    => '/usr/local/bin/:/bin/'
 }
 
-exec { 'hard limit change':
-  command  => 'sudo sed -i "s/holberton\shard.*/holberton\thard\tnofile\t100000/" /etc/security/limits.conf'
+# Increase soft file limit
+exec { 'replace':
+  command => 'sudo sed -i "/holberton soft/s/4/50000/" /etc/security/limits.conf',
+  path    => '/usr/local/bin/:/bin/'
 }
