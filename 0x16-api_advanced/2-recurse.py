@@ -1,31 +1,32 @@
 #!/usr/bin/python3
-"""
-    Query the Reddit API and returns a list of the hottest post for
-    a given subreddit
-"""
+"""List of title of all hot articles in given subreddit"""
+
 import requests
 
 
 def recurse(subreddit, hot_list=[], after=None):
-    """returns a list of all hot post titles for a given subreddit"""
-    if subreddit is None or type(subreddit) is not str:
+    """Queries subreddit for hottest articles"""
+    url = 'https://api.reddit.com/r/{}/hot?after={}'.format(subreddit, after)
+    agent = {'User-Agent': '/u/k4rma_sutra'}
+    res = requests.get(url,  headers=agent)
+    h_list = []
+    if res.status_code == 200:
+        hottest = res.json()["data"]["children"]
+        after = res.json()["data"]["after"]
+
+        if after is None:
+            h_list = append_page(hottest, len(hottest))
+            return h_list
+        h_list.append(recurse(subreddit, h_list, after=after))
+        h_list = append_page(hottest, len(hottest))
+    else:
         return None
-    r = requests.get('http://www.reddit.com/r/{}/hot.json'.format(subreddit),
-                     headers={'User-Agent': 'Python/requests:APIproject:\
-                     v1.0.0 (by /u/k4rma_sutra)'},
-                     params={'after': after}).json()
-    after = r.get('data', {}).get('after', None)
-    posts = r.get('data', {}).get('children', None)
-    if posts is None or (len(posts) > 0 and posts[0].get('kind') != 't3'):
-        if len(hot_list) == 0:
-            return None
-        return hot_list
-    else:
-        for post in posts:
-            hot_list.append(post.get('data', {}).get('title', None))
-    if after is None:
-        if len(hot_list) == 0:
-            return None
-        return hot_list
-    else:
-        return recurse(subreddit, hot_list, after)
+    return h_list
+
+
+def append_page(h_list, count, new_hlist=[]):
+    """append each data in the page"""
+    if count == 0:
+        return new_hlist
+    new_hlist.append(h_list[count - 1]["data"]["title"])
+    return (append_page(h_list, count - 1, new_hlist))
